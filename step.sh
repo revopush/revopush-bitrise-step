@@ -11,17 +11,9 @@ if [ ! -z "${workdir}" ] ; then
     fi
 fi
 
-if which revopush > /dev/null; then
-  echo "Uninstall previous version of revopush CLI."
-  npm uninstall revopush
-fi
-
-echo "Installing Revopush CLI..."
-
-if [ ! -z "$version" ] ; then
-  npm install -g @revopush/code-push-cli@$version --silent > /dev/null 2>&1
-else
-  npm install -g @revopush/code-push-cli --silent > /dev/null 2>&1
+if ! which revopush > /dev/null; then
+  echo "Installing Revopush CLI..."
+  npm install -g @revopush/code-push-cli@$version --force --silent > /dev/null 2>&1
 fi
 
 echo "Logging in to Revopush..."
@@ -29,7 +21,6 @@ revopush logout > /dev/null 2>&1 || true
 revopush login --accessKey $access_key
 echo "Execute command..."
 revopush $command
-echo "Logging out from Revopush..."
 revopush logout > /dev/null 2>&1 || true
 
 exit 0

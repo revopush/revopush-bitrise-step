@@ -76,14 +76,13 @@ toolkit:
   bash:
     entry_file: step.sh
 
-
 inputs:
-  - opts:
+  - workdir: $BITRISE_SOURCE_DIR
+    opts:
       description: |
         Working directory of the step.
         You can leave it empty to not change it.
       title: Working directory
-    workdir: $BITRISE_SOURCE_DIR
   - command: null
     opts:
       description: |-
